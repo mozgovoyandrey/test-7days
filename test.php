@@ -58,7 +58,7 @@ function test_parse_url($url, $component = -1)
 {
     $res = [];
 	
-	$regexp = '/^([a-z]+[^:\/]?)?:?[\/\/]+((([\w]+):)?(([\w]+)@)?([\w\.\-]+)(:(\d+))?)(\/[^?\s]+)(\?([^#]+))?(#(\w*))?$/i';
+	$regexp = '/^([a-z]+[^:\/]?)?:?[\/\/]+((([\w]+):)?(([\w]+)@)?([\w\.\-]+)(:(\d+))?)(\/[^?\s]+)(\?([^#]+))?(#([^#]*))?$/i';
 	
 	preg_match($regexp, $url, $arr);
 
@@ -96,12 +96,12 @@ function test_parse_url($url, $component = -1)
 		case PHP_URL_FRAGMENT:
 			return $res['fragment'];
 			break;
-		default:
-			return false;
+		case -1:
+			return $res;
 			break;
 	}
 
-	return $res;
+	return false;
 }
 
 /*
